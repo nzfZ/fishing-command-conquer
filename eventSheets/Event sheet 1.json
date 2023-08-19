@@ -1,0 +1,406 @@
+{
+	"name": "Event sheet 1",
+	"events": [
+		{
+			"eventType": "variable",
+			"name": "BackGroundSpeed",
+			"type": "number",
+			"initialValue": "500",
+			"comment": "",
+			"isStatic": false,
+			"isConstant": false,
+			"sid": 953737320545174
+		},
+		{
+			"eventType": "variable",
+			"name": "gamma_z",
+			"type": "number",
+			"initialValue": "0",
+			"comment": "",
+			"isStatic": false,
+			"isConstant": false,
+			"sid": 844302029097793
+		},
+		{
+			"eventType": "comment",
+			"text": "set sensitifity to 1.0 - 2.0"
+		},
+		{
+			"eventType": "variable",
+			"name": "sensitivity",
+			"type": "number",
+			"initialValue": "1",
+			"comment": "",
+			"isStatic": false,
+			"isConstant": false,
+			"sid": 489353465732053
+		},
+		{
+			"eventType": "group",
+			"disabled": false,
+			"title": "Vertical Scrolling",
+			"description": "",
+			"isActiveOnStart": true,
+			"children": [
+				{
+					"eventType": "block",
+					"conditions": [
+						{
+							"id": "on-start-of-layout",
+							"objectClass": "System",
+							"sid": 847832087076879
+						}
+					],
+					"actions": [
+						{
+							"id": "set-position",
+							"objectClass": "BGVertical",
+							"sid": 767723510546309,
+							"parameters": {
+								"x": "-120",
+								"y": "0"
+							}
+						}
+					],
+					"sid": 465918178055247
+				},
+				{
+					"eventType": "block",
+					"conditions": [
+						{
+							"id": "every-tick",
+							"objectClass": "System",
+							"sid": 152922494775702
+						}
+					],
+					"actions": [
+						{
+							"id": "set-y",
+							"objectClass": "BGVertical",
+							"sid": 202247292916073,
+							"parameters": {
+								"y": "Self.Y + BackGroundSpeed * dt"
+							}
+						},
+						{
+							"id": "set-y",
+							"objectClass": "Fisherman",
+							"sid": 382203692732631,
+							"parameters": {
+								"y": "Self.Y - 2 * BackGroundSpeed * dt"
+							}
+						},
+						{
+							"id": "set-y",
+							"objectClass": "Hook",
+							"sid": 434544541091958,
+							"parameters": {
+								"y": "Self.Y - BackGroundSpeed * dt"
+							}
+						},
+						{
+							"id": "set-y",
+							"objectClass": "FishHitBox",
+							"sid": 666028158807795,
+							"parameters": {
+								"y": "Self.Y - BackGroundSpeed * dt"
+							}
+						},
+						{
+							"id": "set-text",
+							"objectClass": "Text",
+							"sid": 676592844176692,
+							"parameters": {
+								"text": "int(time * 10) & \" M\""
+							}
+						}
+					],
+					"sid": 714407005286991
+				},
+				{
+					"eventType": "block",
+					"conditions": [
+						{
+							"id": "compare-y",
+							"objectClass": "BGVertical",
+							"sid": 369690990543945,
+							"parameters": {
+								"comparison": 5,
+								"y-co-ordinate": "0"
+							}
+						}
+					],
+					"actions": [
+						{
+							"id": "set-y",
+							"objectClass": "BGVertical",
+							"sid": 826088808379852,
+							"parameters": {
+								"y": "-1080"
+							}
+						}
+					],
+					"sid": 869610338893107
+				},
+				{
+					"eventType": "block",
+					"conditions": [
+						{
+							"id": "is-outside-layout",
+							"objectClass": "Fisherman",
+							"sid": 149856130295324
+						}
+					],
+					"actions": [
+						{
+							"id": "destroy",
+							"objectClass": "Fisherman",
+							"sid": 851231118259695
+						}
+					],
+					"sid": 680435026273625
+				},
+				{
+					"eventType": "block",
+					"conditions": [
+						{
+							"id": "compare-y",
+							"objectClass": "Hook",
+							"sid": 131852549247859,
+							"parameters": {
+								"comparison": 3,
+								"y-co-ordinate": "200"
+							}
+						}
+					],
+					"actions": [
+						{
+							"id": "set-y",
+							"objectClass": "Hook",
+							"sid": 288197060658920,
+							"parameters": {
+								"y": "200"
+							}
+						}
+					],
+					"sid": 723475482374275
+				}
+			],
+			"sid": 487915541471039
+		},
+		{
+			"eventType": "group",
+			"disabled": false,
+			"title": "Navigation",
+			"description": "",
+			"isActiveOnStart": true,
+			"children": [
+				{
+					"eventType": "block",
+					"conditions": [
+						{
+							"id": "every-tick",
+							"objectClass": "System",
+							"sid": 189144414051357
+						}
+					],
+					"actions": [
+						{
+							"id": "set-eventvar-value",
+							"objectClass": "System",
+							"sid": 752914869035308,
+							"parameters": {
+								"variable": "gamma_z",
+								"value": "int(Touch.Gamma)"
+							}
+						},
+						{
+							"id": "set-text",
+							"objectClass": "gamma_z",
+							"sid": 637353609662479,
+							"parameters": {
+								"text": "gamma_z"
+							}
+						}
+					],
+					"sid": 314640791839872
+				},
+				{
+					"eventType": "block",
+					"conditions": [
+						{
+							"id": "compare-eventvar",
+							"objectClass": "System",
+							"sid": 411758435513043,
+							"parameters": {
+								"variable": "gamma_z",
+								"comparison": 1,
+								"value": "0"
+							}
+						}
+					],
+					"actions": [
+						{
+							"id": "set-x",
+							"objectClass": "Hook",
+							"sid": 556654004516038,
+							"parameters": {
+								"x": "Self.X + (gamma_z * sensitivity)"
+							}
+						}
+					],
+					"sid": 579887596114422
+				},
+				{
+					"eventType": "block",
+					"conditions": [
+						{
+							"id": "key-is-down",
+							"objectClass": "Keyboard",
+							"sid": 264473043294847,
+							"parameters": {
+								"key": 65
+							}
+						}
+					],
+					"actions": [
+						{
+							"id": "set-x",
+							"objectClass": "Hook",
+							"sid": 153891584044797,
+							"parameters": {
+								"x": "Self.X - sensitivity * 15"
+							}
+						}
+					],
+					"sid": 403051589009993
+				},
+				{
+					"eventType": "block",
+					"conditions": [
+						{
+							"id": "key-is-down",
+							"objectClass": "Keyboard",
+							"sid": 571899140815581,
+							"parameters": {
+								"key": 68
+							}
+						}
+					],
+					"actions": [
+						{
+							"id": "set-x",
+							"objectClass": "Hook",
+							"sid": 426512353987272,
+							"parameters": {
+								"x": "Self.X + sensitivity * 15"
+							}
+						}
+					],
+					"sid": 780323237731689
+				}
+			],
+			"sid": 860145645302831
+		},
+		{
+			"eventType": "group",
+			"disabled": false,
+			"title": "Fish",
+			"description": "",
+			"isActiveOnStart": true,
+			"children": [
+				{
+					"eventType": "block",
+					"conditions": [
+						{
+							"id": "every-tick",
+							"objectClass": "System",
+							"sid": 690968069878729
+						}
+					],
+					"actions": [
+						{
+							"id": "set-position-to-another-object",
+							"objectClass": "FishBody",
+							"sid": 588646252123742,
+							"parameters": {
+								"object": "FishHitBox",
+								"image-point-optional": "1"
+							}
+						}
+					],
+					"sid": 475951540064646,
+					"children": [
+						{
+							"eventType": "block",
+							"conditions": [
+								{
+									"id": "is-boolean-instance-variable-set",
+									"objectClass": "FishHitBox",
+									"sid": 571716120229576,
+									"parameters": {
+										"instance-variable": "Hooked"
+									}
+								}
+							],
+							"actions": [
+								{
+									"id": "set-position-to-another-object",
+									"objectClass": "FishHitBox",
+									"sid": 172508103889712,
+									"parameters": {
+										"object": "Hook",
+										"image-point-optional": "0"
+									}
+								},
+								{
+									"id": "set-angle",
+									"objectClass": "FishHitBox",
+									"sid": 997866122113254,
+									"parameters": {
+										"angle": "75"
+									}
+								},
+								{
+									"id": "set-angle",
+									"objectClass": "FishBody",
+									"sid": 747664693775391,
+									"parameters": {
+										"angle": "75"
+									}
+								}
+							],
+							"sid": 157475221215780
+						}
+					]
+				},
+				{
+					"eventType": "block",
+					"conditions": [
+						{
+							"id": "on-collision-with-another-object",
+							"objectClass": "FishHitBox",
+							"sid": 842277247947687,
+							"parameters": {
+								"object": "Hook"
+							}
+						}
+					],
+					"actions": [
+						{
+							"id": "toggle-boolean-instvar",
+							"objectClass": "FishHitBox",
+							"sid": 600388077086232,
+							"parameters": {
+								"instance-variable": "Hooked"
+							}
+						}
+					],
+					"sid": 388729931613074
+				}
+			],
+			"sid": 276007768580857
+		}
+	],
+	"sid": 528741110212397
+}

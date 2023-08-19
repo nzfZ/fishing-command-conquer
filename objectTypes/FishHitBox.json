@@ -1,0 +1,45 @@
+{
+	"name": "FishHitBox",
+	"plugin-id": "Sprite",
+	"sid": 686340124615210,
+	"isGlobal": false,
+	"instanceVariables": [
+		{
+			"name": "Hooked",
+			"type": "boolean",
+			"desc": "",
+			"show": true,
+			"sid": 660728584041385
+		}
+	],
+	"behaviorTypes": [],
+	"effectTypes": [],
+	"animations": {
+		"items": [
+			{
+				"frames": [
+					{
+						"width": 250,
+						"height": 250,
+						"originX": 0,
+						"originY": 0.5,
+						"originalSource": "",
+						"exportFormat": "lossless",
+						"exportQuality": 0.8,
+						"imageSpriteId": 5164551,
+						"useCollisionPoly": true,
+						"duration": 1
+					}
+				],
+				"sid": 336008708829882,
+				"name": "Animation 1",
+				"isLooping": false,
+				"isPingPong": false,
+				"repeatCount": 1,
+				"repeatTo": 0,
+				"speed": 5
+			}
+		],
+		"subfolders": []
+	}
+}
